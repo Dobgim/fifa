@@ -98,9 +98,31 @@ const ProductDetail: React.FC = () => {
               {/* Graphic Teams flags */}
               <div className="absolute inset-0 flex flex-col items-center justify-center gap-4">
                 <div className="flex items-center gap-6 sm:gap-10">
-                  <span className="text-6xl sm:text-8xl drop-shadow-2xl animate-pulse">{match.flagA}</span>
+                  {match.flagA === '🏆' || match.flagA === '⚽' || match.flagA.toLowerCase() === 'tbd' ? (
+                    <span className="text-6xl sm:text-8xl drop-shadow-2xl animate-pulse">{match.flagA}</span>
+                  ) : (
+                    <img
+                      src={`https://flagcdn.com/w160/${match.flagA.toLowerCase()}.png`}
+                      alt={match.teamA}
+                      className="h-16 sm:h-24 w-auto object-contain rounded shadow-2xl border border-white/10 animate-pulse"
+                      onError={(e) => {
+                        (e.target as HTMLElement).style.display = 'none';
+                      }}
+                    />
+                  )}
                   <span className="text-2xl sm:text-3xl font-black text-accent drop-shadow-lg">VS</span>
-                  <span className="text-6xl sm:text-8xl drop-shadow-2xl animate-pulse">{match.flagB}</span>
+                  {match.flagB === '🏆' || match.flagB === '⚽' || match.flagB.toLowerCase() === 'tbd' ? (
+                    <span className="text-6xl sm:text-8xl drop-shadow-2xl animate-pulse">{match.flagB}</span>
+                  ) : (
+                    <img
+                      src={`https://flagcdn.com/w160/${match.flagB.toLowerCase()}.png`}
+                      alt={match.teamB}
+                      className="h-16 sm:h-24 w-auto object-contain rounded shadow-2xl border border-white/10 animate-pulse"
+                      onError={(e) => {
+                        (e.target as HTMLElement).style.display = 'none';
+                      }}
+                    />
+                  )}
                 </div>
                 <h2 className="text-white font-extrabold text-3xl sm:text-5xl mt-4 tracking-wider drop-shadow-md">
                   {match.teamA} vs {match.teamB}

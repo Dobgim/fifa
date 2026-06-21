@@ -131,10 +131,32 @@ function MatchRow({ match }: { match: Match }) {
       className="group flex items-center gap-4 bg-slate-900/50 hover:bg-slate-800/60 border border-white/5 hover:border-accent/25 rounded-2xl px-5 py-4 transition-all duration-300 hover:-translate-y-0.5"
     >
       {/* Flags */}
-      <div className="flex items-center gap-2 min-w-[90px] justify-center">
-        <span className="text-2xl">{match.flagA}</span>
-        <span className="text-[10px] font-black text-slate-500">VS</span>
-        <span className="text-2xl">{match.flagB}</span>
+      <div className="flex items-center gap-2 min-w-[95px] justify-center">
+        {match.flagA === '🏆' || match.flagA === '⚽' || match.flagA.toLowerCase() === 'tbd' ? (
+          <span className="text-xl">{match.flagA}</span>
+        ) : (
+          <img
+            src={`https://flagcdn.com/w40/${match.flagA.toLowerCase()}.png`}
+            alt={match.teamA}
+            className="w-7 h-4 object-cover rounded shadow-sm border border-white/5"
+            onError={(e) => {
+              (e.target as HTMLElement).style.display = 'none';
+            }}
+          />
+        )}
+        <span className="text-[9px] font-black text-slate-500">VS</span>
+        {match.flagB === '🏆' || match.flagB === '⚽' || match.flagB.toLowerCase() === 'tbd' ? (
+          <span className="text-xl">{match.flagB}</span>
+        ) : (
+          <img
+            src={`https://flagcdn.com/w40/${match.flagB.toLowerCase()}.png`}
+            alt={match.teamB}
+            className="w-7 h-4 object-cover rounded shadow-sm border border-white/5"
+            onError={(e) => {
+              (e.target as HTMLElement).style.display = 'none';
+            }}
+          />
+        )}
       </div>
 
       {/* Info */}
@@ -238,7 +260,18 @@ const Home: React.FC = () => {
           {/* Featured match banner */}
           {featuredMatch && (
             <div className="flex items-center gap-4 sm:gap-8 mb-6 bg-white/5 backdrop-blur-md border border-white/10 px-6 sm:px-10 py-4 rounded-3xl">
-              <span className="text-5xl sm:text-7xl drop-shadow-2xl">{heroFlagA}</span>
+              {featuredMatch.flagA === '🏆' || featuredMatch.flagA === '⚽' || featuredMatch.flagA.toLowerCase() === 'tbd' ? (
+                <span className="text-5xl sm:text-7xl drop-shadow-2xl">{heroFlagA}</span>
+              ) : (
+                <img
+                  src={`https://flagcdn.com/w160/${featuredMatch.flagA.toLowerCase()}.png`}
+                  alt={featuredMatch.teamA}
+                  className="h-10 sm:h-16 w-auto object-contain rounded shadow-lg border border-white/10"
+                  onError={(e) => {
+                    (e.target as HTMLElement).style.display = 'none';
+                  }}
+                />
+              )}
               <div className="flex flex-col items-center">
                 <span className="text-[10px] font-black text-accent tracking-widest uppercase mb-1">
                   {featuredMatch.isFeatured ? '🔥 Most Watched Today' : "Today's Match"}
@@ -246,7 +279,18 @@ const Home: React.FC = () => {
                 <span className="text-lg sm:text-2xl font-black text-white tracking-widest uppercase">VS</span>
                 <span className="text-[10px] font-semibold text-slate-400 mt-1">{featuredMatch.group}</span>
               </div>
-              <span className="text-5xl sm:text-7xl drop-shadow-2xl">{heroFlagB}</span>
+              {featuredMatch.flagB === '🏆' || featuredMatch.flagB === '⚽' || featuredMatch.flagB.toLowerCase() === 'tbd' ? (
+                <span className="text-5xl sm:text-7xl drop-shadow-2xl">{heroFlagB}</span>
+              ) : (
+                <img
+                  src={`https://flagcdn.com/w160/${featuredMatch.flagB.toLowerCase()}.png`}
+                  alt={featuredMatch.teamB}
+                  className="h-10 sm:h-16 w-auto object-contain rounded shadow-lg border border-white/10"
+                  onError={(e) => {
+                    (e.target as HTMLElement).style.display = 'none';
+                  }}
+                />
+              )}
             </div>
           )}
 
@@ -591,9 +635,31 @@ const Home: React.FC = () => {
                   }`}>{match.group}</div>
 
                   <div className="flex items-center gap-3 mt-4">
-                    <span className="text-4xl">{match.flagA}</span>
+                    {match.flagA === '🏆' || match.flagA === '⚽' || match.flagA.toLowerCase() === 'tbd' ? (
+                      <span className="text-3xl">{match.flagA}</span>
+                    ) : (
+                      <img
+                        src={`https://flagcdn.com/w80/${match.flagA.toLowerCase()}.png`}
+                        alt={match.teamA}
+                        className="w-10 h-6 object-cover rounded shadow border border-white/10"
+                        onError={(e) => {
+                          (e.target as HTMLElement).style.display = 'none';
+                        }}
+                      />
+                    )}
                     <span className="text-xs font-black text-slate-500">VS</span>
-                    <span className="text-4xl">{match.flagB}</span>
+                    {match.flagB === '🏆' || match.flagB === '⚽' || match.flagB.toLowerCase() === 'tbd' ? (
+                      <span className="text-3xl">{match.flagB}</span>
+                    ) : (
+                      <img
+                        src={`https://flagcdn.com/w80/${match.flagB.toLowerCase()}.png`}
+                        alt={match.teamB}
+                        className="w-10 h-6 object-cover rounded shadow border border-white/10"
+                        onError={(e) => {
+                          (e.target as HTMLElement).style.display = 'none';
+                        }}
+                      />
+                    )}
                   </div>
                   <h3 className="text-white font-bold mt-3 text-base leading-snug group-hover:text-accent transition-colors">
                     {match.teamA} vs {match.teamB}

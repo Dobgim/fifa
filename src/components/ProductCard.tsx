@@ -82,9 +82,31 @@ const ProductCard: React.FC<ProductCardProps> = ({ match, category }) => {
         {/* Large Flag Display Overlay */}
         <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <span className="text-3xl sm:text-4xl drop-shadow-md">{match.flagA}</span>
+            {match.flagA === '🏆' || match.flagA === '⚽' || match.flagA.toLowerCase() === 'tbd' ? (
+              <span className="text-3xl sm:text-4xl drop-shadow-md">{match.flagA}</span>
+            ) : (
+              <img
+                src={`https://flagcdn.com/w80/${match.flagA.toLowerCase()}.png`}
+                alt={match.teamA}
+                className="w-10 h-6 object-cover rounded shadow-md border border-white/10"
+                onError={(e) => {
+                  (e.target as HTMLElement).style.display = 'none';
+                }}
+              />
+            )}
             <span className="text-xs font-black text-slate-400">VS</span>
-            <span className="text-3xl sm:text-4xl drop-shadow-md">{match.flagB}</span>
+            {match.flagB === '🏆' || match.flagB === '⚽' || match.flagB.toLowerCase() === 'tbd' ? (
+              <span className="text-3xl sm:text-4xl drop-shadow-md">{match.flagB}</span>
+            ) : (
+              <img
+                src={`https://flagcdn.com/w80/${match.flagB.toLowerCase()}.png`}
+                alt={match.teamB}
+                className="w-10 h-6 object-cover rounded shadow-md border border-white/10"
+                onError={(e) => {
+                  (e.target as HTMLElement).style.display = 'none';
+                }}
+              />
+            )}
           </div>
           {/* Star Rating */}
           <div className="flex items-center gap-1 bg-slate-950/70 backdrop-blur-sm px-2 py-0.5 rounded-md text-xs font-bold text-yellow-500">
