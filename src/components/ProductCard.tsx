@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { MapPin, Calendar, Star, ShoppingCart, CheckCircle, AlertTriangle } from 'lucide-react';
-import { getFormattedDate, getTicketPrice } from '../data/products';
+import { formatMatchDate, getTicketPrice, getTodayStr } from '../data/products';
 import type { Match } from '../data/products';
 import { useCart } from '../context/CartContext';
 
@@ -12,7 +12,8 @@ interface ProductCardProps {
 
 const ProductCard: React.FC<ProductCardProps> = ({ match, category }) => {
   const { addToCart } = useCart();
-  const dateInfo = getFormattedDate(match.dateOffset);
+  const today = getTodayStr();
+  const dateInfo = formatMatchDate(match.calendarDate);
   const ticketPrice = getTicketPrice(match.basePrice, category);
 
   const handleAddToCart = (e: React.MouseEvent) => {
@@ -50,11 +51,13 @@ const ProductCard: React.FC<ProductCardProps> = ({ match, category }) => {
         {/* Dynamic Relative Date Badge */}
         <div className="absolute top-4 left-4 flex gap-2">
           <span className={`px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider ${
-            match.dateOffset === 0
+            match.calendarDate === today
               ? 'bg-red-500 text-white animate-pulse'
-              : match.dateOffset === 1
+              : dateInfo.relative === 'Tomorrow'
               ? 'bg-orange-500 text-white'
-              : 'bg-primary text-white'
+              : match.calendarDate > today
+              ? 'bg-primary text-white'
+              : 'bg-slate-700 text-slate-400'
           }`}>
             {dateInfo.relative}
           </span>

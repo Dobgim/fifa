@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Mail, Phone, MapPin, ShieldCheck, Truck, RotateCcw } from 'lucide-react';
-import logoPng from '../assets/logo.png';
+import Logo from './Logo';
 
 const Footer: React.FC = () => {
   return (
@@ -11,13 +11,13 @@ const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           {/* Brand Info */}
           <div className="flex flex-col items-start gap-4">
-            <Link to="/" className="flex items-center gap-2 group">
-              <img src={logoPng} alt="Logo" className="h-10 w-auto" />
+            <Link to="/" className="flex items-center gap-3 group">
+              <Logo size={44} className="shrink-0" />
               <div className="flex flex-col text-left">
-                <span className="font-display text-2xl leading-none text-white tracking-wide font-black">
+                <span className="font-display text-xl leading-none text-white tracking-wide font-black">
                   AFFORDABLE
                 </span>
-                <span className="font-display text-sm leading-none text-accent tracking-widest font-bold">
+                <span className="font-display text-xs leading-none text-accent tracking-widest font-bold">
                   FIFA TICKETS
                 </span>
               </div>

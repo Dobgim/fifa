@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useSearchParams, useNavigate, Link } from 'react-router-dom';
 import { MapPin, Calendar, ShieldCheck, Ticket, Users, FileText, ArrowLeft, Plus, Minus, Info, Sparkles } from 'lucide-react';
-import { MATCH_SCHEDULE, getFormattedDate, getTicketPrice, CATEGORY_NAMES } from '../data/products';
+import { MATCH_SCHEDULE, formatMatchDate, getTicketPrice, CATEGORY_NAMES } from '../data/products';
 import { useCart } from '../context/CartContext';
 
 const ProductDetail: React.FC = () => {
@@ -35,7 +35,7 @@ const ProductDetail: React.FC = () => {
     );
   }
 
-  const dateInfo = getFormattedDate(match.dateOffset);
+  const dateInfo = formatMatchDate(match.calendarDate);
   const ticketPrice = getTicketPrice(match.basePrice, selectedCategory);
 
   const incrementQty = () => setQuantity((prev) => Math.min(prev + 1, 10));

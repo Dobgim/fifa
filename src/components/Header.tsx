@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Search, ShoppingBag, Menu, X, Globe, Star } from 'lucide-react';
 import { useCart } from '../context/CartContext';
-import logoPng from '../assets/logo.png';
+import Logo from './Logo';
 
 const Header: React.FC = () => {
   const { cartCount } = useCart();
@@ -66,17 +66,13 @@ const Header: React.FC = () => {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
           {/* Logo Section */}
-          <Link to="/" className="flex items-center gap-2 group">
-            <img
-              src={logoPng}
-              alt="Affordable FIFA Tickets"
-              className="h-10 w-auto sm:h-12 object-contain transition-transform duration-300 group-hover:scale-105"
-            />
+          <Link to="/" className="flex items-center gap-3 group">
+            <Logo size={44} className="transition-transform duration-300 group-hover:scale-105 shrink-0" />
             <div className="flex flex-col">
-              <span className="font-display text-2xl sm:text-3xl leading-none text-white tracking-wide font-black">
+              <span className="font-display text-xl sm:text-2xl leading-none text-white tracking-wide font-black">
                 AFFORDABLE
               </span>
-              <span className="font-display text-sm leading-none text-accent tracking-widest font-bold">
+              <span className="font-display text-xs leading-none text-accent tracking-widest font-bold">
                 FIFA TICKETS
               </span>
             </div>
@@ -192,7 +188,7 @@ const Header: React.FC = () => {
           <div className="relative ml-auto w-full max-w-sm h-full bg-slate-950 border-l border-white/5 p-6 flex flex-col shadow-2xl z-10 transition-transform duration-300 animate-slide-in">
             <div className="flex items-center justify-between border-b border-white/5 pb-4 mb-6">
               <div className="flex items-center gap-2">
-                <img src={logoPng} alt="Logo" className="h-8 w-auto" />
+                <Logo size={32} className="shrink-0" />
                 <span className="font-display text-lg text-white font-bold tracking-wider">
                   TICKET MENU
                 </span>

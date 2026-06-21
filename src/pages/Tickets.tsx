@@ -3,10 +3,14 @@ import { SlidersHorizontal, ArrowUpDown } from 'lucide-react';
 import FilterSidebar from '../components/FilterSidebar';
 import ProductCard from '../components/ProductCard';
 import Pagination from '../components/Pagination';
-import { MATCH_SCHEDULE, getTicketPrice } from '../data/products';
+import { MATCH_SCHEDULE, getTicketPrice, getTodayStr, getDateStrOffset } from '../data/products';
 
 const Tickets: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<1 | 2 | 3>(3); // Default to Category 3
+
+  const today = getTodayStr();
+  const tomorrow = getDateStrOffset(1);
+  const weekEnd = getDateStrOffset(7);
 
   const maxPriceLimit = Math.max(
     ...MATCH_SCHEDULE.map((m) => getTicketPrice(m.basePrice, selectedCategory))
@@ -50,15 +54,10 @@ const Tickets: React.FC = () => {
       // Price filter
       const matchesPrice = ticketPrice <= filters.maxPrice;
 
-      // Date offset filter
       let matchesDate = true;
-      if (filters.dateFilter === 'today') {
-        matchesDate = match.dateOffset === 0;
-      } else if (filters.dateFilter === 'tomorrow') {
-        matchesDate = match.dateOffset === 1;
-      } else if (filters.dateFilter === 'week') {
-        matchesDate = match.dateOffset <= 7;
-      }
+      if (filters.dateFilter === 'today') matchesDate = match.calendarDate === today;
+      else if (filters.dateFilter === 'tomorrow') matchesDate = match.calendarDate === tomorrow;
+      else if (filters.dateFilter === 'week') matchesDate = match.calendarDate >= today && match.calendarDate <= weekEnd;
 
       return matchesSearch && matchesCity && matchesPrice && matchesDate;
     }).sort((a, b) => {
@@ -67,7 +66,7 @@ const Tickets: React.FC = () => {
       if (sortBy === 'price-asc') return priceA - priceB;
       if (sortBy === 'price-desc') return priceB - priceA;
       if (sortBy === 'name-asc') return a.teamA.localeCompare(b.teamA);
-      return a.dateOffset - b.dateOffset;
+      return a.calendarDate.localeCompare(b.calendarDate);
     });
   }, [filters, sortBy, selectedCategory]);
 

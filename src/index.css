@@ -112,3 +112,47 @@
     opacity: 0;
   }
 }
+
+/* ─── Animations ────────────────────────────────────────── */
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slide-in {
+  from { transform: translateX(100%); }
+  to   { transform: translateX(0); }
+}
+
+@keyframes ticker-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.6s ease both;
+}
+
+.animate-slide-in {
+  animation: slide-in 0.35s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+/* ─── Scrollbar utilities ───────────────────────────────── */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* ─── Tabular numbers for countdown ────────────────────── */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ─── Hero image fade utility ───────────────────────────── */
+.hero-overlay {
+  background: linear-gradient(to top, #090b0e 0%, rgba(9,11,14,0.55) 50%, rgba(9,11,14,0.15) 100%);
+}
+
