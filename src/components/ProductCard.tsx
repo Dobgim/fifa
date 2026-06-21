@@ -1,9 +1,25 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { MapPin, Calendar, Star, ShoppingCart, CheckCircle, AlertTriangle } from 'lucide-react';
+import { MapPin, Calendar, Star, ShoppingCart, CheckCircle, AlertTriangle, Clock } from 'lucide-react';
 import { formatMatchDate, getTicketPrice, getTodayStr } from '../data/products';
 import type { Match } from '../data/products';
 import { useCart } from '../context/CartContext';
+
+// Local time auto-converter
+function LocalTime({ utcTime }: { utcTime: string }) {
+  const [label, setLabel] = useState('');
+  useEffect(() => {
+    try {
+      const d = new Date(utcTime);
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      const time = d.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: false, timeZone: tz });
+      const tzShort = new Intl.DateTimeFormat('en-US', { timeZoneName: 'short', timeZone: tz })
+        .formatToParts(d).find((p) => p.type === 'timeZoneName')?.value ?? '';
+      setLabel(`${time} ${tzShort}`);
+    } catch { setLabel(''); }
+  }, [utcTime]);
+  return label ? <span className="font-bold text-accent">{label} (your time)</span> : null;
+}
 
 interface ProductCardProps {
   match: Match;
@@ -133,7 +149,14 @@ const ProductCard: React.FC<ProductCardProps> = ({ match, category }) => {
           </div>
           <div className="flex items-center gap-2">
             <Calendar className="w-4 h-4 text-accent shrink-0" />
-            <span className="line-clamp-1">{dateInfo.full} &bull; {match.time}</span>
+            <span className="line-clamp-1">{dateInfo.full}</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <Clock className="w-4 h-4 text-accent shrink-0" />
+            <span className="line-clamp-1 flex flex-wrap gap-1 items-center">
+              <span className="text-slate-400">{match.time} (Venue)</span>
+              {match.utcTime && <LocalTime utcTime={match.utcTime} />}
+            </span>
           </div>
         </div>
 

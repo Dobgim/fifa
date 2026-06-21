@@ -9,13 +9,25 @@ export interface Match {
   city: string;
   calendarDate: string; // ISO date string "YYYY-MM-DD"
   basePrice: number;
-  time: string;
+  time: string; // Venue local time (e.g. "12:00 EDT")
+  utcTime: string; // UTC ISO string "2026-06-21T16:00:00Z"
   group: string;
   inStock: boolean;
   rating: number;
-  image: string;
+  image: string; // Generic stadium background
   isFeatured?: boolean; // Most-watched / headliner match of the day
 }
+
+// ─── Generic Stadium Images ──────────────────────────────────────────────────
+const STADIUM_IMAGES = [
+  "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=800&auto=format&fit=crop", // Lights and crowd
+  "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?q=80&w=800&auto=format&fit=crop", // Green pitch empty
+  "https://images.unsplash.com/photo-1577223625816-7546f13df25d?q=80&w=800&auto=format&fit=crop", // Stadium night close-up
+  "https://images.unsplash.com/photo-1431324155629-1a6edd1d1414?q=80&w=800&auto=format&fit=crop", // Corner flag field
+  "https://images.unsplash.com/photo-1518063319789-7217e6706b04?q=80&w=800&auto=format&fit=crop", // Stadium floodlights
+  "https://images.unsplash.com/photo-1556056504-517cd025e3e4?q=80&w=800&auto=format&fit=crop", // Packed stadium crowd
+  "https://images.unsplash.com/photo-1504156806530-22d26505a2de?q=80&w=800&auto=format&fit=crop", // Grass turf closeup
+];
 
 export const MATCH_SCHEDULE: Match[] = [
   // ─── June 11 (Opening Match) ───────────────────────────────────────────────
@@ -31,10 +43,11 @@ export const MATCH_SCHEDULE: Match[] = [
     calendarDate: "2026-06-11",
     basePrice: 850,
     time: "20:30 CST",
+    utcTime: "2026-06-12T02:30:00Z",
     group: "Group A",
     inStock: false,
     rating: 5.0,
-    image: "https://affordablefifatickets.com/wp-content/uploads/2025/09/IMG_9779-247x247.jpg",
+    image: STADIUM_IMAGES[0],
     isFeatured: true,
   },
 
@@ -50,11 +63,12 @@ export const MATCH_SCHEDULE: Match[] = [
     city: "Toronto",
     calendarDate: "2026-06-12",
     basePrice: 750,
-    time: "18:00 EST",
+    time: "18:00 EDT",
+    utcTime: "2026-06-12T22:00:00Z",
     group: "Group B",
     inStock: false,
     rating: 4.9,
-    image: "https://affordablefifatickets.com/wp-content/uploads/2026/06/IMG_9806-247x247.jpg",
+    image: STADIUM_IMAGES[1],
   },
   {
     id: "usa-paraguay",
@@ -67,11 +81,12 @@ export const MATCH_SCHEDULE: Match[] = [
     city: "Los Angeles",
     calendarDate: "2026-06-12",
     basePrice: 790,
-    time: "19:00 PST",
+    time: "19:00 PDT",
+    utcTime: "2026-06-13T02:00:00Z",
     group: "Group D",
     inStock: false,
     rating: 5.0,
-    image: "https://affordablefifatickets.com/wp-content/uploads/2026/06/IMG_9782-247x247.jpg",
+    image: STADIUM_IMAGES[2],
     isFeatured: true,
   },
 
@@ -87,11 +102,12 @@ export const MATCH_SCHEDULE: Match[] = [
     city: "San Francisco",
     calendarDate: "2026-06-13",
     basePrice: 650,
-    time: "18:00 PST",
+    time: "18:00 PDT",
+    utcTime: "2026-06-14T01:00:00Z",
     group: "Group B",
     inStock: false,
     rating: 4.6,
-    image: "https://affordablefifatickets.com/wp-content/uploads/2026/06/IMG_9776-247x247.jpg",
+    image: STADIUM_IMAGES[3],
   },
   {
     id: "brazil-morocco-gstage",
@@ -104,11 +120,12 @@ export const MATCH_SCHEDULE: Match[] = [
     city: "New York/New Jersey",
     calendarDate: "2026-06-13",
     basePrice: 850,
-    time: "17:00 EST",
+    time: "17:00 EDT",
+    utcTime: "2026-06-13T21:00:00Z",
     group: "Group C",
     inStock: false,
     rating: 5.0,
-    image: "https://affordablefifatickets.com/wp-content/uploads/2026/06/IMG_9782-247x247.jpg",
+    image: STADIUM_IMAGES[4],
     isFeatured: true,
   },
   {
@@ -122,11 +139,12 @@ export const MATCH_SCHEDULE: Match[] = [
     city: "Boston",
     calendarDate: "2026-06-13",
     basePrice: 630,
-    time: "19:00 EST",
+    time: "19:00 EDT",
+    utcTime: "2026-06-13T23:00:00Z",
     group: "Group C",
     inStock: false,
     rating: 4.5,
-    image: "https://affordablefifatickets.com/wp-content/uploads/2026/06/IMG_9783-247x247.jpg",
+    image: STADIUM_IMAGES[5],
   },
   {
     id: "australia-turkiye-gstage",
@@ -139,11 +157,12 @@ export const MATCH_SCHEDULE: Match[] = [
     city: "Vancouver",
     calendarDate: "2026-06-13",
     basePrice: 680,
-    time: "20:00 PST",
+    time: "20:00 PDT",
+    utcTime: "2026-06-14T03:00:00Z",
     group: "Group D",
     inStock: false,
     rating: 4.7,
-    image: "https://affordablefifatickets.com/wp-content/uploads/2026/06/IMG_9784-247x247.jpg",
+    image: STADIUM_IMAGES[6],
   },
 
   // ─── June 14 ────────────────────────────────────────────────────────────────
@@ -158,11 +177,12 @@ export const MATCH_SCHEDULE: Match[] = [
     city: "Houston",
     calendarDate: "2026-06-14",
     basePrice: 720,
-    time: "17:00 CST",
+    time: "17:00 CDT",
+    utcTime: "2026-06-14T22:00:00Z",
     group: "Group E",
     inStock: false,
     rating: 4.8,
-    image: "https://affordablefifatickets.com/wp-content/uploads/2026/06/IMG_9781-247x247.jpg",
+    image: STADIUM_IMAGES[0],
     isFeatured: true,
   },
   {
@@ -176,11 +196,12 @@ export const MATCH_SCHEDULE: Match[] = [
     city: "Dallas",
     calendarDate: "2026-06-14",
     basePrice: 750,
-    time: "18:00 CST",
+    time: "18:00 CDT",
+    utcTime: "2026-06-14T23:00:00Z",
     group: "Group F",
     inStock: false,
     rating: 4.9,
-    image: "https://affordablefifatickets.com/wp-content/uploads/2026/06/IMG_9783-247x247.jpg",
+    image: STADIUM_IMAGES[1],
   },
   {
     id: "cotedivoire-ecuador",
@@ -193,11 +214,12 @@ export const MATCH_SCHEDULE: Match[] = [
     city: "Philadelphia",
     calendarDate: "2026-06-14",
     basePrice: 650,
-    time: "19:00 EST",
+    time: "19:00 EDT",
+    utcTime: "2026-06-14T23:00:00Z",
     group: "Group E",
     inStock: false,
     rating: 4.6,
-    image: "https://affordablefifatickets.com/wp-content/uploads/2026/06/IMG_9806-247x247.jpg",
+    image: STADIUM_IMAGES[2],
   },
   {
     id: "sweden-tunisia",
@@ -211,10 +233,11 @@ export const MATCH_SCHEDULE: Match[] = [
     calendarDate: "2026-06-14",
     basePrice: 640,
     time: "20:00 CST",
+    utcTime: "2026-06-15T02:00:00Z",
     group: "Group F",
     inStock: false,
     rating: 4.5,
-    image: "https://affordablefifatickets.com/wp-content/uploads/2026/06/IMG_9776-247x247.jpg",
+    image: STADIUM_IMAGES[3],
   },
 
   // ─── June 15 ────────────────────────────────────────────────────────────────
@@ -229,11 +252,12 @@ export const MATCH_SCHEDULE: Match[] = [
     city: "Atlanta",
     calendarDate: "2026-06-15",
     basePrice: 780,
-    time: "12:00 EST",
+    time: "12:00 EDT",
+    utcTime: "2026-06-15T16:00:00Z",
     group: "Group H",
     inStock: false,
     rating: 4.9,
-    image: "https://affordablefifatickets.com/wp-content/uploads/2026/06/IMG_9784-247x247.jpg",
+    image: STADIUM_IMAGES[4],
     isFeatured: true,
   },
   {
@@ -247,11 +271,12 @@ export const MATCH_SCHEDULE: Match[] = [
     city: "Seattle",
     calendarDate: "2026-06-15",
     basePrice: 740,
-    time: "15:00 PST",
+    time: "15:00 PDT",
+    utcTime: "2026-06-15T22:00:00Z",
     group: "Group G",
     inStock: false,
     rating: 4.8,
-    image: "https://affordablefifatickets.com/wp-content/uploads/2026/06/IMG_9806-247x247.jpg",
+    image: STADIUM_IMAGES[5],
   },
   {
     id: "saudiarabia-uruguay",
@@ -264,11 +289,12 @@ export const MATCH_SCHEDULE: Match[] = [
     city: "Miami",
     calendarDate: "2026-06-15",
     basePrice: 710,
-    time: "18:00 EST",
+    time: "18:00 EDT",
+    utcTime: "2026-06-15T22:00:00Z",
     group: "Group H",
     inStock: false,
     rating: 4.7,
-    image: "https://affordablefifatickets.com/wp-content/uploads/2026/06/IMG_9781-247x247.jpg",
+    image: STADIUM_IMAGES[6],
   },
   {
     id: "iran-newzealand",
@@ -281,11 +307,12 @@ export const MATCH_SCHEDULE: Match[] = [
     city: "Los Angeles",
     calendarDate: "2026-06-15",
     basePrice: 650,
-    time: "19:30 PST",
+    time: "19:30 PDT",
+    utcTime: "2026-06-16T02:30:00Z",
     group: "Group G",
     inStock: false,
     rating: 4.5,
-    image: "https://affordablefifatickets.com/wp-content/uploads/2026/06/IMG_9776-247x247.jpg",
+    image: STADIUM_IMAGES[0],
   },
 
   // ─── June 16 ────────────────────────────────────────────────────────────────
@@ -300,11 +327,12 @@ export const MATCH_SCHEDULE: Match[] = [
     city: "New York/New Jersey",
     calendarDate: "2026-06-16",
     basePrice: 810,
-    time: "15:00 EST",
+    time: "15:00 EDT",
+    utcTime: "2026-06-16T19:00:00Z",
     group: "Group I",
     inStock: false,
     rating: 5.0,
-    image: "https://affordablefifatickets.com/wp-content/uploads/2026/06/IMG_9806-247x247.jpg",
+    image: STADIUM_IMAGES[1],
     isFeatured: true,
   },
   {
@@ -318,11 +346,12 @@ export const MATCH_SCHEDULE: Match[] = [
     city: "Boston",
     calendarDate: "2026-06-16",
     basePrice: 690,
-    time: "15:00 EST",
+    time: "15:00 EDT",
+    utcTime: "2026-06-16T19:00:00Z",
     group: "Group I",
     inStock: false,
     rating: 4.6,
-    image: "https://affordablefifatickets.com/wp-content/uploads/2026/06/IMG_9783-247x247.jpg",
+    image: STADIUM_IMAGES[2],
   },
   {
     id: "argentina-algeria",
@@ -335,11 +364,12 @@ export const MATCH_SCHEDULE: Match[] = [
     city: "Kansas City",
     calendarDate: "2026-06-16",
     basePrice: 820,
-    time: "20:00 CST",
+    time: "20:00 CDT",
+    utcTime: "2026-06-17T01:00:00Z",
     group: "Group J",
     inStock: false,
     rating: 5.0,
-    image: "https://affordablefifatickets.com/wp-content/uploads/2026/06/IMG_9782-247x247.jpg",
+    image: STADIUM_IMAGES[3],
   },
   {
     id: "austria-jordan",
@@ -352,11 +382,12 @@ export const MATCH_SCHEDULE: Match[] = [
     city: "Santa Clara",
     calendarDate: "2026-06-16",
     basePrice: 650,
-    time: "18:00 PST",
+    time: "18:00 PDT",
+    utcTime: "2026-06-17T01:00:00Z",
     group: "Group J",
     inStock: false,
     rating: 4.5,
-    image: "https://affordablefifatickets.com/wp-content/uploads/2026/06/IMG_9776-247x247.jpg",
+    image: STADIUM_IMAGES[4],
   },
 
   // ─── June 17 ────────────────────────────────────────────────────────────────
@@ -371,11 +402,12 @@ export const MATCH_SCHEDULE: Match[] = [
     city: "Houston",
     calendarDate: "2026-06-17",
     basePrice: 790,
-    time: "17:00 CST",
+    time: "17:00 CDT",
+    utcTime: "2026-06-17T22:00:00Z",
     group: "Group K",
     inStock: false,
     rating: 4.9,
-    image: "https://affordablefifatickets.com/wp-content/uploads/2026/06/IMG_9782-247x247.jpg",
+    image: STADIUM_IMAGES[5],
     isFeatured: true,
   },
   {
@@ -389,11 +421,12 @@ export const MATCH_SCHEDULE: Match[] = [
     city: "Boston",
     calendarDate: "2026-06-17",
     basePrice: 770,
-    time: "19:00 EST",
+    time: "19:00 EDT",
+    utcTime: "2026-06-17T23:00:00Z",
     group: "Group L",
     inStock: false,
     rating: 4.9,
-    image: "https://affordablefifatickets.com/wp-content/uploads/2026/06/IMG_9784-247x247.jpg",
+    image: STADIUM_IMAGES[6],
   },
   {
     id: "ghana-panama",
@@ -406,11 +439,12 @@ export const MATCH_SCHEDULE: Match[] = [
     city: "Toronto",
     calendarDate: "2026-06-17",
     basePrice: 640,
-    time: "15:00 EST",
+    time: "15:00 EDT",
+    utcTime: "2026-06-17T19:00:00Z",
     group: "Group L",
     inStock: false,
     rating: 4.6,
-    image: "https://affordablefifatickets.com/wp-content/uploads/2026/06/IMG_9776-247x247.jpg",
+    image: STADIUM_IMAGES[0],
   },
   {
     id: "colombia-uzbekistan",
@@ -424,10 +458,11 @@ export const MATCH_SCHEDULE: Match[] = [
     calendarDate: "2026-06-17",
     basePrice: 710,
     time: "18:00 CST",
+    utcTime: "2026-06-18T00:00:00Z",
     group: "Group K",
     inStock: false,
     rating: 4.7,
-    image: "https://affordablefifatickets.com/wp-content/uploads/2026/06/IMG_9781-247x247.jpg",
+    image: STADIUM_IMAGES[1],
   },
 
   // ─── June 18 ────────────────────────────────────────────────────────────────
@@ -443,10 +478,11 @@ export const MATCH_SCHEDULE: Match[] = [
     calendarDate: "2026-06-18",
     basePrice: 670,
     time: "18:00 PST",
+    utcTime: "2026-06-19T01:00:00Z",
     group: "Group A",
     inStock: false,
     rating: 4.6,
-    image: "https://affordablefifatickets.com/wp-content/uploads/2026/06/IMG_9776-247x247.jpg",
+    image: STADIUM_IMAGES[2],
     isFeatured: true,
   },
 
@@ -462,11 +498,12 @@ export const MATCH_SCHEDULE: Match[] = [
     city: "Seattle",
     calendarDate: "2026-06-19",
     basePrice: 750,
-    time: "17:30 PST",
+    time: "17:30 PDT",
+    utcTime: "2026-06-20T00:30:00Z",
     group: "Group D",
     inStock: false,
     rating: 4.9,
-    image: "https://affordablefifatickets.com/wp-content/uploads/2026/06/IMG_9806-247x247.jpg",
+    image: STADIUM_IMAGES[3],
     isFeatured: true,
   },
   {
@@ -480,11 +517,12 @@ export const MATCH_SCHEDULE: Match[] = [
     city: "Boston",
     calendarDate: "2026-06-19",
     basePrice: 680,
-    time: "19:00 EST",
+    time: "19:00 EDT",
+    utcTime: "2026-06-19T23:00:00Z",
     group: "Group C",
     inStock: false,
     rating: 4.7,
-    image: "https://affordablefifatickets.com/wp-content/uploads/2026/06/IMG_9783-247x247.jpg",
+    image: STADIUM_IMAGES[4],
   },
   {
     id: "turkiye-paraguay",
@@ -498,10 +536,11 @@ export const MATCH_SCHEDULE: Match[] = [
     calendarDate: "2026-06-19",
     basePrice: 670,
     time: "18:00 PST",
+    utcTime: "2026-06-20T01:00:00Z",
     group: "Group D",
     inStock: false,
     rating: 4.6,
-    image: "https://affordablefifatickets.com/wp-content/uploads/2026/06/IMG_9776-247x247.jpg",
+    image: STADIUM_IMAGES[5],
   },
   {
     id: "brazil-haiti-gstage",
@@ -514,11 +553,12 @@ export const MATCH_SCHEDULE: Match[] = [
     city: "New York/New Jersey",
     calendarDate: "2026-06-19",
     basePrice: 830,
-    time: "20:00 EST",
+    time: "20:00 EDT",
+    utcTime: "2026-06-20T00:00:00Z",
     group: "Group C",
     inStock: false,
     rating: 5.0,
-    image: "https://affordablefifatickets.com/wp-content/uploads/2026/06/IMG_9782-247x247.jpg",
+    image: STADIUM_IMAGES[6],
   },
 
   // ─── June 20 ────────────────────────────────────────────────────────────────
@@ -533,11 +573,12 @@ export const MATCH_SCHEDULE: Match[] = [
     city: "Dallas",
     calendarDate: "2026-06-20",
     basePrice: 750,
-    time: "18:00 CST",
+    time: "18:00 CDT",
+    utcTime: "2026-06-20T23:00:00Z",
     group: "Group F",
     inStock: false,
     rating: 4.8,
-    image: "https://affordablefifatickets.com/wp-content/uploads/2026/06/IMG_9783-247x247.jpg",
+    image: STADIUM_IMAGES[0],
     isFeatured: true,
   },
   {
@@ -551,11 +592,12 @@ export const MATCH_SCHEDULE: Match[] = [
     city: "Houston",
     calendarDate: "2026-06-20",
     basePrice: 740,
-    time: "17:00 CST",
+    time: "17:00 CDT",
+    utcTime: "2026-06-20T22:00:00Z",
     group: "Group E",
     inStock: false,
     rating: 4.8,
-    image: "https://affordablefifatickets.com/wp-content/uploads/2026/06/IMG_9781-247x247.jpg",
+    image: STADIUM_IMAGES[1],
   },
   {
     id: "ecuador-curacao",
@@ -568,11 +610,12 @@ export const MATCH_SCHEDULE: Match[] = [
     city: "Philadelphia",
     calendarDate: "2026-06-20",
     basePrice: 650,
-    time: "19:00 EST",
+    time: "19:00 EDT",
+    utcTime: "2026-06-20T23:00:00Z",
     group: "Group E",
     inStock: false,
     rating: 4.6,
-    image: "https://affordablefifatickets.com/wp-content/uploads/2026/06/IMG_9806-247x247.jpg",
+    image: STADIUM_IMAGES[2],
   },
 
   // ─── June 21 (TODAY) ─────────────────────────────────────────────────────────
@@ -587,11 +630,12 @@ export const MATCH_SCHEDULE: Match[] = [
     city: "Atlanta",
     calendarDate: "2026-06-21",
     basePrice: 790,
-    time: "12:00 EST",
+    time: "12:00 EDT",
+    utcTime: "2026-06-21T16:00:00Z",
     group: "Group H",
     inStock: true,
     rating: 4.9,
-    image: "https://affordablefifatickets.com/wp-content/uploads/2026/06/IMG_9784-247x247.jpg",
+    image: STADIUM_IMAGES[0], // Spain vs Saudi - lights and crowd
     isFeatured: true,
   },
   {
@@ -605,11 +649,12 @@ export const MATCH_SCHEDULE: Match[] = [
     city: "Los Angeles",
     calendarDate: "2026-06-21",
     basePrice: 750,
-    time: "15:00 PST",
+    time: "15:00 PDT",
+    utcTime: "2026-06-21T22:00:00Z",
     group: "Group G",
     inStock: true,
     rating: 4.8,
-    image: "https://affordablefifatickets.com/wp-content/uploads/2026/06/IMG_9806-247x247.jpg",
+    image: STADIUM_IMAGES[1],
   },
   {
     id: "uruguay-cape-verde-today",
@@ -622,11 +667,12 @@ export const MATCH_SCHEDULE: Match[] = [
     city: "Miami",
     calendarDate: "2026-06-21",
     basePrice: 730,
-    time: "18:00 EST",
+    time: "18:00 EDT",
+    utcTime: "2026-06-21T22:00:00Z",
     group: "Group H",
     inStock: true,
     rating: 4.7,
-    image: "https://affordablefifatickets.com/wp-content/uploads/2026/06/IMG_9782-247x247.jpg",
+    image: STADIUM_IMAGES[2],
   },
   {
     id: "new-zealand-egypt-today",
@@ -639,11 +685,12 @@ export const MATCH_SCHEDULE: Match[] = [
     city: "Vancouver",
     calendarDate: "2026-06-21",
     basePrice: 690,
-    time: "21:00 EST",
+    time: "21:00 PDT",
+    utcTime: "2026-06-22T04:00:00Z",
     group: "Group G",
     inStock: true,
     rating: 4.6,
-    image: "https://affordablefifatickets.com/wp-content/uploads/2025/09/IMG_9779-247x247.jpg",
+    image: STADIUM_IMAGES[3],
   },
 
   // ─── June 22 (TOMORROW) ──────────────────────────────────────────────────────
@@ -658,11 +705,12 @@ export const MATCH_SCHEDULE: Match[] = [
     city: "Dallas",
     calendarDate: "2026-06-22",
     basePrice: 830,
-    time: "17:00 CST",
+    time: "17:00 CDT",
+    utcTime: "2026-06-22T22:00:00Z",
     group: "Group J",
     inStock: true,
     rating: 5.0,
-    image: "https://affordablefifatickets.com/wp-content/uploads/2026/06/IMG_9782-247x247.jpg",
+    image: STADIUM_IMAGES[4], // Argentina vs Austria
     isFeatured: true,
   },
   {
@@ -676,11 +724,12 @@ export const MATCH_SCHEDULE: Match[] = [
     city: "Philadelphia",
     calendarDate: "2026-06-22",
     basePrice: 820,
-    time: "20:00 EST",
+    time: "20:00 EDT",
+    utcTime: "2026-06-23T00:00:00Z",
     group: "Group I",
     inStock: true,
     rating: 4.9,
-    image: "https://affordablefifatickets.com/wp-content/uploads/2026/06/IMG_9806-247x247.jpg",
+    image: STADIUM_IMAGES[5],
   },
   {
     id: "norway-senegal-tomorrow",
@@ -693,11 +742,12 @@ export const MATCH_SCHEDULE: Match[] = [
     city: "New York/New Jersey",
     calendarDate: "2026-06-22",
     basePrice: 710,
-    time: "14:00 EST",
+    time: "14:00 EDT",
+    utcTime: "2026-06-22T18:00:00Z",
     group: "Group I",
     inStock: true,
     rating: 4.7,
-    image: "https://affordablefifatickets.com/wp-content/uploads/2026/06/IMG_9783-247x247.jpg",
+    image: STADIUM_IMAGES[6],
   },
   {
     id: "jordan-algeria-tomorrow",
@@ -710,11 +760,12 @@ export const MATCH_SCHEDULE: Match[] = [
     city: "San Francisco",
     calendarDate: "2026-06-22",
     basePrice: 650,
-    time: "18:00 PST",
+    time: "18:00 PDT",
+    utcTime: "2026-06-23T01:00:00Z",
     group: "Group J",
     inStock: true,
     rating: 4.5,
-    image: "https://affordablefifatickets.com/wp-content/uploads/2026/06/IMG_9776-247x247.jpg",
+    image: STADIUM_IMAGES[0],
   },
 
   // ─── June 23 ────────────────────────────────────────────────────────────────
@@ -729,11 +780,12 @@ export const MATCH_SCHEDULE: Match[] = [
     city: "Houston",
     calendarDate: "2026-06-23",
     basePrice: 780,
-    time: "17:00 CST",
+    time: "17:00 CDT",
+    utcTime: "2026-06-23T22:00:00Z",
     group: "Group K",
     inStock: true,
     rating: 4.9,
-    image: "https://affordablefifatickets.com/wp-content/uploads/2026/06/IMG_9782-247x247.jpg",
+    image: STADIUM_IMAGES[1],
     isFeatured: true,
   },
   {
@@ -747,11 +799,12 @@ export const MATCH_SCHEDULE: Match[] = [
     city: "Boston",
     calendarDate: "2026-06-23",
     basePrice: 790,
-    time: "19:00 EST",
+    time: "19:00 EDT",
+    utcTime: "2026-06-23T23:00:00Z",
     group: "Group L",
     inStock: true,
     rating: 4.9,
-    image: "https://affordablefifatickets.com/wp-content/uploads/2026/06/IMG_9784-247x247.jpg",
+    image: STADIUM_IMAGES[2],
   },
   {
     id: "panama-croatia",
@@ -764,11 +817,12 @@ export const MATCH_SCHEDULE: Match[] = [
     city: "Toronto",
     calendarDate: "2026-06-23",
     basePrice: 690,
-    time: "15:00 EST",
+    time: "15:00 EDT",
+    utcTime: "2026-06-23T19:00:00Z",
     group: "Group L",
     inStock: true,
     rating: 4.7,
-    image: "https://affordablefifatickets.com/wp-content/uploads/2026/06/IMG_9776-247x247.jpg",
+    image: STADIUM_IMAGES[3],
   },
   {
     id: "colombia-drcongo",
@@ -782,10 +836,11 @@ export const MATCH_SCHEDULE: Match[] = [
     calendarDate: "2026-06-23",
     basePrice: 720,
     time: "18:00 CST",
+    utcTime: "2026-06-24T00:00:00Z",
     group: "Group K",
     inStock: true,
     rating: 4.8,
-    image: "https://affordablefifatickets.com/wp-content/uploads/2026/06/IMG_9781-247x247.jpg",
+    image: STADIUM_IMAGES[4],
   },
 
   // ─── June 24 ────────────────────────────────────────────────────────────────
@@ -800,11 +855,12 @@ export const MATCH_SCHEDULE: Match[] = [
     city: "Vancouver",
     calendarDate: "2026-06-24",
     basePrice: 710,
-    time: "18:00 PST",
+    time: "18:00 PDT",
+    utcTime: "2026-06-25T01:00:00Z",
     group: "Group B",
     inStock: true,
     rating: 4.8,
-    image: "https://affordablefifatickets.com/wp-content/uploads/2025/09/IMG_9779-247x247.jpg",
+    image: STADIUM_IMAGES[5],
     isFeatured: true,
   },
   {
@@ -818,14 +874,15 @@ export const MATCH_SCHEDULE: Match[] = [
     city: "Seattle",
     calendarDate: "2026-06-24",
     basePrice: 650,
-    time: "15:00 PST",
+    time: "15:00 PDT",
+    utcTime: "2026-06-24T22:00:00Z",
     group: "Group B",
     inStock: true,
     rating: 4.5,
-    image: "https://affordablefifatickets.com/wp-content/uploads/2026/06/IMG_9776-247x247.jpg",
+    image: STADIUM_IMAGES[6],
   },
   {
-    id: "scotland-brazil",
+    id: "scotland-brazil-today",
     title: "Scotland vs Brazil",
     teamA: "Scotland",
     teamB: "Brazil",
@@ -835,11 +892,12 @@ export const MATCH_SCHEDULE: Match[] = [
     city: "Miami",
     calendarDate: "2026-06-24",
     basePrice: 850,
-    time: "19:00 EST",
+    time: "19:00 EDT",
+    utcTime: "2026-06-24T23:00:00Z",
     group: "Group C",
     inStock: true,
     rating: 5.0,
-    image: "https://affordablefifatickets.com/wp-content/uploads/2026/06/IMG_9782-247x247.jpg",
+    image: STADIUM_IMAGES[0], // Scotland vs Brazil
   },
   {
     id: "morocco-haiti",
@@ -852,11 +910,12 @@ export const MATCH_SCHEDULE: Match[] = [
     city: "Atlanta",
     calendarDate: "2026-06-24",
     basePrice: 640,
-    time: "21:00 EST",
+    time: "21:00 EDT",
+    utcTime: "2026-06-25T01:00:00Z",
     group: "Group C",
     inStock: true,
     rating: 4.6,
-    image: "https://affordablefifatickets.com/wp-content/uploads/2026/06/IMG_9783-247x247.jpg",
+    image: STADIUM_IMAGES[1],
   },
   {
     id: "czechia-mexico",
@@ -870,10 +929,11 @@ export const MATCH_SCHEDULE: Match[] = [
     calendarDate: "2026-06-24",
     basePrice: 760,
     time: "18:00 CST",
+    utcTime: "2026-06-25T00:00:00Z",
     group: "Group A",
     inStock: true,
     rating: 4.8,
-    image: "https://affordablefifatickets.com/wp-content/uploads/2025/09/IMG_9779-247x247.jpg",
+    image: STADIUM_IMAGES[2],
   },
   {
     id: "southafrica-southkorea",
@@ -886,11 +946,12 @@ export const MATCH_SCHEDULE: Match[] = [
     city: "Los Angeles",
     calendarDate: "2026-06-24",
     basePrice: 690,
-    time: "15:00 PST",
+    time: "15:00 PDT",
+    utcTime: "2026-06-24T22:00:00Z",
     group: "Group A",
     inStock: true,
     rating: 4.7,
-    image: "https://affordablefifatickets.com/wp-content/uploads/2026/06/IMG_9806-247x247.jpg",
+    image: STADIUM_IMAGES[3],
   },
 
   // ─── June 25 ────────────────────────────────────────────────────────────────
@@ -905,11 +966,12 @@ export const MATCH_SCHEDULE: Match[] = [
     city: "Philadelphia",
     calendarDate: "2026-06-25",
     basePrice: 650,
-    time: "16:00 EST",
+    time: "16:00 EDT",
+    utcTime: "2026-06-25T20:00:00Z",
     group: "Group E",
     inStock: true,
     rating: 4.5,
-    image: "https://affordablefifatickets.com/wp-content/uploads/2026/06/IMG_9806-247x247.jpg",
+    image: STADIUM_IMAGES[4],
   },
   {
     id: "ecuador-germany-gstage",
@@ -922,11 +984,12 @@ export const MATCH_SCHEDULE: Match[] = [
     city: "New York/New Jersey",
     calendarDate: "2026-06-25",
     basePrice: 770,
-    time: "16:00 EST",
+    time: "16:00 EDT",
+    utcTime: "2026-06-25T20:00:00Z",
     group: "Group E",
     inStock: true,
     rating: 4.8,
-    image: "https://affordablefifatickets.com/wp-content/uploads/2026/06/IMG_9781-247x247.jpg",
+    image: STADIUM_IMAGES[5],
     isFeatured: true,
   },
   {
@@ -940,11 +1003,12 @@ export const MATCH_SCHEDULE: Match[] = [
     city: "Santa Clara",
     calendarDate: "2026-06-25",
     basePrice: 690,
-    time: "19:00 PST",
+    time: "19:00 PDT",
+    utcTime: "2026-06-26T02:00:00Z",
     group: "Group D",
     inStock: true,
     rating: 4.6,
-    image: "https://affordablefifatickets.com/wp-content/uploads/2026/06/IMG_9776-247x247.jpg",
+    image: STADIUM_IMAGES[6],
   },
 
   // ─── June 26 ────────────────────────────────────────────────────────────────
@@ -959,11 +1023,12 @@ export const MATCH_SCHEDULE: Match[] = [
     city: "Boston",
     calendarDate: "2026-06-26",
     basePrice: 820,
-    time: "15:00 EST",
+    time: "15:00 EDT",
+    utcTime: "2026-06-26T19:00:00Z",
     group: "Group I",
     inStock: true,
     rating: 4.9,
-    image: "https://affordablefifatickets.com/wp-content/uploads/2026/06/IMG_9806-247x247.jpg",
+    image: STADIUM_IMAGES[0],
     isFeatured: true,
   },
   {
@@ -977,11 +1042,12 @@ export const MATCH_SCHEDULE: Match[] = [
     city: "Toronto",
     calendarDate: "2026-06-26",
     basePrice: 680,
-    time: "15:00 EST",
+    time: "15:00 EDT",
+    utcTime: "2026-06-26T19:00:00Z",
     group: "Group I",
     inStock: true,
     rating: 4.6,
-    image: "https://affordablefifatickets.com/wp-content/uploads/2026/06/IMG_9783-247x247.jpg",
+    image: STADIUM_IMAGES[1],
   },
   {
     id: "egypt-iran-gstage",
@@ -994,11 +1060,12 @@ export const MATCH_SCHEDULE: Match[] = [
     city: "Seattle",
     calendarDate: "2026-06-26",
     basePrice: 700,
-    time: "20:00 PST",
+    time: "20:00 PDT",
+    utcTime: "2026-06-27T03:00:00Z",
     group: "Group G",
     inStock: true,
     rating: 4.7,
-    image: "https://affordablefifatickets.com/wp-content/uploads/2026/06/IMG_9776-247x247.jpg",
+    image: STADIUM_IMAGES[2],
   },
 
   // ─── Knockout Stages (June 28 onwards) ──────────────────────────────────────
@@ -1013,11 +1080,12 @@ export const MATCH_SCHEDULE: Match[] = [
     city: "Dallas",
     calendarDate: "2026-06-28",
     basePrice: 950,
-    time: "20:00 CST",
+    time: "20:00 CDT",
+    utcTime: "2026-06-29T01:00:00Z",
     group: "Round of 32",
     inStock: true,
     rating: 5.0,
-    image: "https://affordablefifatickets.com/wp-content/uploads/2026/06/IMG_9806-247x247.jpg",
+    image: STADIUM_IMAGES[3], // Germany vs Spain
     isFeatured: true,
   },
   {
@@ -1031,11 +1099,12 @@ export const MATCH_SCHEDULE: Match[] = [
     city: "New York/New Jersey",
     calendarDate: "2026-06-30",
     basePrice: 1050,
-    time: "21:00 EST",
+    time: "21:00 EDT",
+    utcTime: "2026-07-01T01:00:00Z",
     group: "Round of 32",
     inStock: true,
     rating: 5.0,
-    image: "https://affordablefifatickets.com/wp-content/uploads/2026/06/IMG_9782-247x247.jpg",
+    image: STADIUM_IMAGES[4],
     isFeatured: true,
   },
   {
@@ -1049,11 +1118,12 @@ export const MATCH_SCHEDULE: Match[] = [
     city: "Los Angeles",
     calendarDate: "2026-07-04",
     basePrice: 1200,
-    time: "20:00 PST",
+    time: "20:00 PDT",
+    utcTime: "2026-07-05T03:00:00Z",
     group: "Quarter-Final",
     inStock: true,
     rating: 5.0,
-    image: "https://affordablefifatickets.com/wp-content/uploads/2026/06/IMG_9806-247x247.jpg",
+    image: STADIUM_IMAGES[5],
     isFeatured: true,
   },
   {
@@ -1067,11 +1137,12 @@ export const MATCH_SCHEDULE: Match[] = [
     city: "New York/New Jersey",
     calendarDate: "2026-07-14",
     basePrice: 2500,
-    time: "18:00 EST",
+    time: "18:00 EDT",
+    utcTime: "2026-07-14T22:00:00Z",
     group: "FINAL",
     inStock: true,
     rating: 5.0,
-    image: "https://affordablefifatickets.com/wp-content/uploads/2026/06/IMG_9806-247x247.jpg",
+    image: STADIUM_IMAGES[6],
     isFeatured: true,
   },
 ];
@@ -1139,6 +1210,29 @@ export function formatMatchDate(calendarDate: string): { relative: string; full:
 // Backward-compat helper that takes a dateOffset number (legacy)
 export function getFormattedDate(offset: number): { relative: string; full: string; dateObj: Date } {
   return formatMatchDate(getDateStrOffset(offset));
+}
+
+/**
+ * Formats a match UTC time into local venue time and the browser's local time (WAT, etc.).
+ */
+export function formatMatchTime(utcTimeString: string, venueTimeStr: string): string {
+  try {
+    const date = new Date(utcTimeString);
+    const browserTime = date.toLocaleTimeString(undefined, {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false,
+    });
+    
+    // Get browser's timezone name (WAT, EST, etc.)
+    const tzString = new Intl.DateTimeFormat('en-US', { timeZoneName: 'short' })
+      .format(date)
+      .split(', ')[1] || '';
+      
+    return `${venueTimeStr} (Converted: ${browserTime} ${tzString})`;
+  } catch (e) {
+    return venueTimeStr;
+  }
 }
 
 // ─── Pricing ──────────────────────────────────────────────────────────────────

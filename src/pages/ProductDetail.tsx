@@ -1,8 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useSearchParams, useNavigate, Link } from 'react-router-dom';
-import { MapPin, Calendar, ShieldCheck, Ticket, Users, FileText, ArrowLeft, Plus, Minus, Info, Sparkles } from 'lucide-react';
+import { MapPin, Calendar, ShieldCheck, Ticket, Users, FileText, ArrowLeft, Plus, Minus, Info, Sparkles, Clock } from 'lucide-react';
 import { MATCH_SCHEDULE, formatMatchDate, getTicketPrice, CATEGORY_NAMES } from '../data/products';
 import { useCart } from '../context/CartContext';
+
+// Local time auto-converter
+function LocalTime({ utcTime }: { utcTime: string }) {
+  const [label, setLabel] = useState('');
+  useEffect(() => {
+    try {
+      const d = new Date(utcTime);
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      const time = d.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: false, timeZone: tz });
+      const tzShort = new Intl.DateTimeFormat('en-US', { timeZoneName: 'short', timeZone: tz })
+        .formatToParts(d).find((p) => p.type === 'timeZoneName')?.value ?? '';
+      setLabel(`${time} ${tzShort}`);
+    } catch { setLabel(''); }
+  }, [utcTime]);
+  return label ? <span className="font-bold text-accent">{label} (your time)</span> : null;
+}
 
 const ProductDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -232,8 +248,14 @@ const ProductDetail: React.FC = () => {
                   </div>
                   <div className="flex items-center gap-2 text-xs text-slate-400 font-semibold">
                     <Calendar className="w-4 h-4 text-accent shrink-0" />
-                    <span>{dateInfo.full} &bull; {match.time}</span>
+                    <span>{dateInfo.full} &bull; {match.time} (Venue Time)</span>
                   </div>
+                  {match.utcTime && (
+                    <div className="flex items-center gap-2 text-xs text-slate-400 font-semibold">
+                      <Clock className="w-4 h-4 text-accent shrink-0" />
+                      <LocalTime utcTime={match.utcTime} />
+                    </div>
+                  )}
                 </div>
               </div>
 

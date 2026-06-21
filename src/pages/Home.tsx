@@ -17,6 +17,37 @@ import {
   type Match
 } from '../data/products';
 
+// ─── Local Time Badge ────────────────────────────────────────────────────────
+function LocalTimeBadge({ utcTime, venueTime }: { utcTime: string; venueTime: string }) {
+  const [localTime, setLocalTime] = React.useState('');
+
+  React.useEffect(() => {
+    try {
+      const d = new Date(utcTime);
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      const formatted = d.toLocaleTimeString(undefined, {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false,
+        timeZone: tz,
+      });
+      const tzLabel = new Intl.DateTimeFormat('en-US', {
+        timeZoneName: 'short',
+        timeZone: tz,
+      }).formatToParts(d).find((p) => p.type === 'timeZoneName')?.value ?? '';
+      setLocalTime(`${formatted} ${tzLabel} (Your Time)`);
+    } catch {
+      setLocalTime(venueTime);
+    }
+  }, [utcTime, venueTime]);
+
+  return localTime ? (
+    <span className="inline-flex items-center gap-1 bg-accent/15 border border-accent/25 text-accent text-[10px] font-bold px-2.5 py-1 rounded-full tracking-wider">
+      🌍 {localTime}
+    </span>
+  ) : null;
+}
+
 // ─── Live Countdown Timer ────────────────────────────────────────────────────
 function CountdownTimer({ targetDate }: { targetDate: string }) {
   const [timeLeft, setTimeLeft] = useState({ h: 0, m: 0, s: 0 });
@@ -172,6 +203,9 @@ function MatchRow({ match }: { match: Match }) {
       {/* Time & Group */}
       <div className="hidden sm:flex flex-col items-end gap-1 shrink-0">
         <span className="text-xs font-bold text-white">{match.time}</span>
+        {match.utcTime && (
+          <LocalTimeBadge utcTime={match.utcTime} venueTime={match.time} />
+        )}
         <span className="text-[10px] text-slate-500 font-semibold">{match.group}</span>
       </div>
 
@@ -211,7 +245,7 @@ const Home: React.FC = () => {
 
   const selectedMatches = getMatchesForDate(selectedDate);
   const featuredMatch = getTodaysFeaturedMatch();
-  const heroImage = featuredMatch?.image ?? 'https://affordablefifatickets.com/wp-content/uploads/2026/06/IMG_9806.jpg';
+  // heroImage removed — hero uses professional pitch-gradient background
   const heroTeamA = featuredMatch?.teamA ?? 'World Cup';
   const heroTeamB = featuredMatch?.teamB ?? '2026';
   const heroFlagA = featuredMatch?.flagA ?? '⚽';
@@ -223,30 +257,39 @@ const Home: React.FC = () => {
     .sort((a, b) => b.rating - a.rating)
     .slice(0, 3);
 
-  // Real countdown to next match kickoff
+  // Real countdown to next match kickoff — using the UTC time field
   const nextMatch = MATCH_SCHEDULE
     .filter((m) => m.inStock && m.calendarDate >= today)
-    .sort((a, b) => a.calendarDate.localeCompare(b.calendarDate))[0];
-  const countdownTarget = nextMatch
-    ? `${nextMatch.calendarDate}T${nextMatch.time.split(' ')[0]}:00`
-    : new Date(Date.now() + 3600000).toISOString();
+    .sort((a, b) => {
+      // Sort by actual UTC time if available, fallback to calendar date
+      if (a.utcTime && b.utcTime) return new Date(a.utcTime).getTime() - new Date(b.utcTime).getTime();
+      return a.calendarDate.localeCompare(b.calendarDate);
+    })[0];
+  const countdownTarget = nextMatch?.utcTime ?? new Date(Date.now() + 3600000).toISOString();
 
   return (
     <div className="overflow-hidden">
 
       {/* ══════════════ 1. HERO SECTION ══════════════ */}
       <section className="relative min-h-screen flex items-center justify-center bg-slate-950 text-center px-4 sm:px-6 lg:px-8">
-        {/* Dynamic background from today's featured match */}
-        <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat z-0 transition-all duration-1000"
-          style={{
-            backgroundImage: `url('${heroImage}')`,
-            filter: 'brightness(0.28) saturate(1.4)',
-          }}
-        />
-        {/* Gradient overlays */}
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/50 to-slate-950/10 z-0" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_100%,rgba(0,68,148,0.35),transparent)] z-0" />
+        {/* Professional pitch-green gradient background — no flag image clash */}
+        <div className="absolute inset-0 z-0">
+          {/* Base dark layer */}
+          <div className="absolute inset-0 bg-slate-950" />
+          {/* Radial FIFA-blue spotlight */}
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_120%_80%_at_50%_120%,rgba(0,68,148,0.60),transparent_65%)]" />
+          {/* Pitch-green glow from bottom-left */}
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_0%_100%,rgba(0,177,64,0.18),transparent_60%)]" />
+          {/* Top-right accent glow */}
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_40%_at_100%_0%,rgba(0,68,148,0.25),transparent_60%)]" />
+          {/* Subtle football pitch grid texture */}
+          <div
+            className="absolute inset-0 opacity-[0.04]"
+            style={{ backgroundImage: 'repeating-linear-gradient(0deg,transparent,transparent 60px,rgba(255,255,255,0.5) 60px,rgba(255,255,255,0.5) 61px),repeating-linear-gradient(90deg,transparent,transparent 60px,rgba(255,255,255,0.5) 60px,rgba(255,255,255,0.5) 61px)' }}
+          />
+        </div>
+        {/* Bottom fade to page */}
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent z-0" />
 
         {/* Content */}
         <div className="relative max-w-6xl mx-auto flex flex-col items-center z-10 select-none pt-28 pb-16">
@@ -302,17 +345,23 @@ const Home: React.FC = () => {
           </h1>
 
           {featuredMatch && (
-            <p className="mt-4 text-slate-300 text-sm sm:text-base flex items-center gap-3 flex-wrap justify-center">
-              <span className="flex items-center gap-1.5">
-                <MapPin className="w-4 h-4 text-accent" />
-                {featuredMatch.venue}, {featuredMatch.city}
-              </span>
-              <span className="text-slate-600">·</span>
-              <span className="flex items-center gap-1.5">
-                <Clock className="w-4 h-4 text-accent" />
-                {featuredMatch.time} · {formatMatchDate(featuredMatch.calendarDate).full}
-              </span>
-            </p>
+            <div className="mt-4 flex flex-col items-center gap-2">
+              <p className="text-slate-300 text-sm sm:text-base flex items-center gap-3 flex-wrap justify-center">
+                <span className="flex items-center gap-1.5">
+                  <MapPin className="w-4 h-4 text-accent" />
+                  {featuredMatch.venue}, {featuredMatch.city}
+                </span>
+                <span className="text-slate-600">·</span>
+                <span className="flex items-center gap-1.5">
+                  <Clock className="w-4 h-4 text-accent" />
+                  {featuredMatch.time} · {formatMatchDate(featuredMatch.calendarDate).full}
+                </span>
+              </p>
+              {/* Local time badge — auto-converts to viewer's timezone (WAT, GMT, etc.) */}
+              {featuredMatch.utcTime && (
+                <LocalTimeBadge utcTime={featuredMatch.utcTime} venueTime={featuredMatch.time} />
+              )}
+            </div>
           )}
 
           {/* Countdown */}
