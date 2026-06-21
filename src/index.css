@@ -156,3 +156,49 @@
   background: linear-gradient(to top, #090b0e 0%, rgba(9,11,14,0.55) 50%, rgba(9,11,14,0.15) 100%);
 }
 
+/* ─── Google Translate Widget Customizations ─────────────── */
+.google-translate-dropdown select.goog-te-combo {
+  background-color: #0f172a !important; /* Slate 900 */
+  color: #f8fafc !important; /* Slate 50 */
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 6px !important;
+  padding: 2px 4px !important;
+  font-family: inherit !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  outline: none !important;
+  cursor: pointer !important;
+  max-width: 90px !important;
+}
+
+.google-translate-dropdown select.goog-te-combo:focus {
+  border-color: #ff6b00 !important;
+}
+
+/* Hide branding text & logo links */
+.goog-logo-link,
+.goog-te-gadget span,
+.goog-te-gadget div {
+  display: none !important;
+}
+
+.goog-te-gadget {
+  color: transparent !important;
+  font-size: 0 !important;
+  line-height: 0 !important;
+}
+
+/* Hide Google's native top framing banner */
+.goog-te-banner-frame,
+.goog-te-banner-frame.skiptranslate,
+iframe.goog-te-banner-frame,
+.goog-te-menu-frame {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+body {
+  top: 0px !important;
+}
+
+

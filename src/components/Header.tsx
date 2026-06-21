@@ -107,6 +107,12 @@ const Header: React.FC = () => {
               LIVE TICKET FEED
             </div>
 
+            {/* Google Translate Select Widget */}
+            <div className="flex items-center gap-1.5 bg-slate-900/60 border border-white/5 rounded-lg px-2 py-1 max-w-[140px] overflow-hidden shrink-0">
+              <Globe className="w-3.5 h-3.5 text-accent shrink-0" />
+              <div id="google_translate_element" className="google-translate-dropdown text-[10px]"></div>
+            </div>
+
             {/* Search Toggle */}
             <button
               onClick={() => setIsSearchOpen(!isSearchOpen)}
