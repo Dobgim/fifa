@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Search, ShoppingBag, Menu, X, Globe, Star } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import Logo from './Logo';
+import LanguageSelector from './LanguageSelector';
 
 const Header: React.FC = () => {
   const { cartCount } = useCart();
@@ -107,11 +108,9 @@ const Header: React.FC = () => {
               LIVE TICKET FEED
             </div>
 
-            {/* Google Translate Select Widget */}
-            <div className="flex items-center gap-1.5 bg-slate-900/60 border border-white/5 rounded-lg px-2 py-1 max-w-[140px] overflow-hidden shrink-0">
-              <Globe className="w-3.5 h-3.5 text-accent shrink-0" />
-              <div id="google_translate_element" className="google-translate-dropdown text-[10px]"></div>
-            </div>
+            {/* Custom Language Selector Widget (EN, FR, ES) */}
+            <LanguageSelector />
+            <div id="google_translate_element" style={{ display: 'none' }}></div>
 
             {/* Search Toggle */}
             <button
@@ -228,6 +227,11 @@ const Header: React.FC = () => {
             </nav>
 
             <div className="mt-auto border-t border-white/5 pt-6 flex flex-col gap-4 text-center">
+              {/* Mobile Language Selector */}
+              <div className="flex items-center justify-between px-2 pb-2 border-b border-white/5">
+                <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Select Language</span>
+                <LanguageSelector />
+              </div>
               <div className="flex items-center justify-center gap-2 text-xs text-slate-400 font-semibold">
                 <Globe className="w-4 h-4 text-accent" />
                 100% Guaranteed Tickets

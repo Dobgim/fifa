@@ -7,6 +7,7 @@ import {
   TrendingUp, Award, Lock
 } from 'lucide-react';
 import ProductCard from '../components/ProductCard';
+import MatchBackground from '../components/MatchBackground';
 import {
   MATCH_SCHEDULE,
   getTodayStr,
@@ -272,24 +273,23 @@ const Home: React.FC = () => {
 
       {/* ══════════════ 1. HERO SECTION ══════════════ */}
       <section className="relative min-h-screen flex items-center justify-center bg-slate-950 text-center px-4 sm:px-6 lg:px-8">
-        {/* Professional pitch-green gradient background — no flag image clash */}
+        {/* Professional pitch-green gradient background with split dynamic flag backdrop */}
         <div className="absolute inset-0 z-0">
-          {/* Base dark layer */}
-          <div className="absolute inset-0 bg-slate-950" />
+          <MatchBackground flagA={heroFlagA} flagB={heroFlagB} className="opacity-45" />
           {/* Radial FIFA-blue spotlight */}
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_120%_80%_at_50%_120%,rgba(0,68,148,0.60),transparent_65%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_120%_80%_at_50%_120%,rgba(0,68,148,0.50),transparent_65%)] z-10" />
           {/* Pitch-green glow from bottom-left */}
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_0%_100%,rgba(0,177,64,0.18),transparent_60%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_0%_100%,rgba(0,177,64,0.18),transparent_60%)] z-10" />
           {/* Top-right accent glow */}
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_40%_at_100%_0%,rgba(0,68,148,0.25),transparent_60%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_40%_at_100%_0%,rgba(0,68,148,0.25),transparent_60%)] z-10" />
           {/* Subtle football pitch grid texture */}
           <div
-            className="absolute inset-0 opacity-[0.04]"
+            className="absolute inset-0 opacity-[0.03] z-10"
             style={{ backgroundImage: 'repeating-linear-gradient(0deg,transparent,transparent 60px,rgba(255,255,255,0.5) 60px,rgba(255,255,255,0.5) 61px),repeating-linear-gradient(90deg,transparent,transparent 60px,rgba(255,255,255,0.5) 60px,rgba(255,255,255,0.5) 61px)' }}
           />
         </div>
         {/* Bottom fade to page */}
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent z-0" />
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent z-0" />
 
         {/* Content */}
         <div className="relative max-w-6xl mx-auto flex flex-col items-center z-10 select-none pt-28 pb-16">

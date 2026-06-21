@@ -4,6 +4,7 @@ import { MapPin, Calendar, Star, ShoppingCart, CheckCircle, AlertTriangle, Clock
 import { formatMatchDate, getTicketPrice, getTodayStr } from '../data/products';
 import type { Match } from '../data/products';
 import { useCart } from '../context/CartContext';
+import MatchBackground from './MatchBackground';
 
 // Local time auto-converter
 function LocalTime({ utcTime }: { utcTime: string }) {
@@ -55,12 +56,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ match, category }) => {
     >
       {/* Product Image / Match Graphic Banner */}
       <div className="relative h-44 sm:h-48 overflow-hidden bg-slate-900">
-        <img
-          src={match.image}
-          alt={match.title}
-          className="w-full h-full object-cover opacity-60 group-hover:scale-108 transition-transform duration-500"
-          loading="lazy"
-        />
+        <MatchBackground flagA={match.flagA} flagB={match.flagB} className="opacity-75 group-hover:scale-105 transition-transform duration-500" />
         {/* Pitch overlay gradient */}
         <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent" />
 

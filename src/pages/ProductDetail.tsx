@@ -3,6 +3,7 @@ import { useParams, useSearchParams, useNavigate, Link } from 'react-router-dom'
 import { MapPin, Calendar, ShieldCheck, Ticket, Users, FileText, ArrowLeft, Plus, Minus, Info, Sparkles, Clock } from 'lucide-react';
 import { MATCH_SCHEDULE, formatMatchDate, getTicketPrice, CATEGORY_NAMES } from '../data/products';
 import { useCart } from '../context/CartContext';
+import MatchBackground from '../components/MatchBackground';
 
 // Local time auto-converter
 function LocalTime({ utcTime }: { utcTime: string }) {
@@ -104,11 +105,7 @@ const ProductDetail: React.FC = () => {
           {/* Left Column: Image Banner */}
           <div className="lg:col-span-7 flex flex-col gap-6">
             <div className="relative rounded-3xl overflow-hidden bg-slate-900 border border-white/5 shadow-2xl h-80 sm:h-110">
-              <img
-                src={match.image}
-                alt={match.title}
-                className="w-full h-full object-cover opacity-70"
-              />
+              <MatchBackground flagA={match.flagA} flagB={match.flagB} className="opacity-70" />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent" />
               
               {/* Graphic Teams flags */}
